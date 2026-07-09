@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سجّل AI — دفتر حساباتك، بصوتك</title>
+<meta name="description" content="سجّل AI: تطبيق محاسبة صوتي بالذكاء الاصطناعي، بالعربي، لأصحاب المحلات والمصالح الصغيرة في فلسطين. احكِ العملية، والذكاء الاصطناعي بسجّلها ويحسب الأرصدة ويطلع التقارير.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050f0d;
+  --bg-2:#081714;
+  --panel:rgba(16,38,34,.55);
+  --line:rgba(64,224,199,.14);
+  --line-strong:rgba(64,224,199,.35);
+  --teal:#14b8a6;
+  --teal-bright:#2dd4bf;
+  --teal-glow:rgba(45,212,191,.45);
+  --gold:#f0b94b;
+  --gold-glow:rgba(240,185,75,.4);
+  --text:#e8f5f2;
+  --muted:#8fb0aa;
+  --radius:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.8;
+  font-size:17px;
+  overflow-x:hidden;
+}
+h1,h2,h3,.brand{font-family:"Alexandria",sans-serif}
+a{color:inherit;text-decoration:none}
+.container{max-width:1080px;margin:0 auto;padding:0 20px;position:relative;z-index:2}
+
+/* ---------- ambient glows ---------- */
+.glow{position:fixed;border-radius:50%;filter:blur(120px);z-index:0;pointer-events:none}
+.glow-1{width:520px;height:520px;background:rgba(20,184,166,.13);top:-160px;right:-120px}
+.glow-2{width:460px;height:460px;background:rgba(240,185,75,.07);bottom:-140px;left:-120px}
+
+/* ---------- Header ---------- */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(5,15,13,.75);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px}
+.brand-mark{
+  width:40px;height:40px;border-radius:12px;
+  background:linear-gradient(135deg,var(--teal),#0d7a6d);
+  display:grid;place-items:center;color:#04211d;font-size:20px;font-weight:900;
+  box-shadow:0 0 18px var(--teal-glow);
+}
+.brand .ai{color:var(--teal-bright)}
+.nav-links{display:flex;gap:26px;font-size:14.5px;color:var(--muted);font-weight:500}
+.nav-links a{transition:color .2s}
+.nav-links a:hover{color:var(--teal-bright)}
+.nav-cta{
+  background:linear-gradient(135deg,var(--teal),#0ea5a0);
+  color:#04211d;font-weight:800;font-size:14px;
+  padding:9px 20px;border-radius:999px;
+  box-shadow:0 0 20px var(--teal-glow);
+  transition:transform .2s,box-shadow .2s;
+}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px var(--teal-glow)}
+@media(max-width:760px){.nav-links{display:none}}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;padding:84px 0 60px;overflow:hidden}
+#net{position:absolute;inset:0;z-index:0;opacity:.55}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:radial-gradient(ellipse at 70% 20%,transparent 0%,var(--bg) 78%);
+  pointer-events:none;
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center;position:relative;z-index:2}
+@media(max-width:880px){.hero-grid{grid-template-columns:1fr;gap:44px}}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(45,212,191,.08);color:var(--teal-bright);
+  font-size:13px;font-weight:700;padding:6px 16px;border-radius:999px;
+  margin-bottom:22px;border:1px solid var(--line-strong);
+  box-shadow:0 0 24px rgba(45,212,191,.12) inset;
+}
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--teal-bright);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--teal-glow)}50%{box-shadow:0 0 0 7px transparent}}
+.hero h1{
+  font-size:clamp(36px,5.6vw,58px);font-weight:900;line-height:1.3;
+}
+.hero h1 .grad{
+  background:linear-gradient(90deg,var(--teal-bright),var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 22px rgba(45,212,191,.35));
+}
+.hero p.lead{margin-top:20px;font-size:18.5px;color:var(--muted);max-width:46ch}
+.hero p.lead strong{color:var(--text)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-weight:800;font-size:16px;border-radius:14px;
+  padding:14px 28px;transition:all .2s;border:1px solid transparent;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--teal-bright),var(--teal));
+  color:#04211d;box-shadow:0 0 26px var(--teal-glow);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 40px var(--teal-glow)}
+.btn-ghost{border-color:var(--line-strong);color:var(--text);background:rgba(255,255,255,.03)}
+.btn-ghost:hover{border-color:var(--teal-bright);color:var(--teal-bright)}
+.hero-note{margin-top:16px;font-size:13px;color:var(--muted)}
+
+/* ---------- Signature: live AI demo ---------- */
+.demo{
+  position:relative;border-radius:24px;padding:26px;
+  background:linear-gradient(160deg,rgba(20,45,40,.85),rgba(8,23,20,.9));
+  border:1px solid var(--line-strong);
+  box-shadow:0 0 0 1px rgba(45,212,191,.06),0 30px 80px rgba(0,0,0,.55),0 0 60px rgba(45,212,191,.08);
+  backdrop-filter:blur(10px);
+}
+.demo::before{
+  content:"";position:absolute;inset:-1px;border-radius:24px;padding:1px;
+  background:linear-gradient(140deg,rgba(45,212,191,.5),transparent 35%,transparent 65%,rgba(240,185,75,.45));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;
+}
+.demo-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.demo-label{font-size:12.5px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:8px}
+.ai-chip{
+  font-size:11px;font-weight:800;color:var(--gold);
+  border:1px solid rgba(240,185,75,.4);border-radius:999px;padding:3px 12px;
+  background:rgba(240,185,75,.07);
+  text-shadow:0 0 12px var(--gold-glow);
+  animation:chipGlow 2.4s ease-in-out infinite;
+}
+@keyframes chipGlow{0%,100%{box-shadow:0 0 8px rgba(240,185,75,.15)}50%{box-shadow:0 0 20px rgba(240,185,75,.35)}}
+.voice-row{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);
+  border-radius:14px;padding:14px 16px;
+}
+.mic{
+  flex-shrink:0;width:46px;height:46px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#ffd98a,var(--gold));
+  display:grid;place-items:center;font-size:20px;position:relative;
+}
+.mic::after{
+  content:"";position:absolute;inset:-6px;border-radius:50%;
+  border:2px solid rgba(240,185,75,.5);animation:ring 1.8s ease-out infinite;
+}
+@keyframes ring{0%{transform:scale(.85);opacity:1}100%{transform:scale(1.5);opacity:0}}
+.wave{display:flex;align-items:center;gap:3px;height:28px;flex-shrink:0}
+.wave span{width:4px;border-radius:2px;background:linear-gradient(var(--teal-bright),var(--gold));animation:wv 1s ease-in-out infinite;box-shadow:0 0 8px var(--teal-glow)}
+.wave span:nth-child(1){height:10px;animation-delay:0s}
+.wave span:nth-child(2){height:20px;animation-delay:.13s}
+.wave span:nth-child(3){height:28px;animation-delay:.26s}
+.wave span:nth-child(4){height:16px;animation-delay:.39s}
+.wave span:nth-child(5){height:24px;animation-delay:.52s}
+.wave span:nth-child(6){height:9px;animation-delay:.65s}
+@keyframes wv{0%,100%{transform:scaleY(.45)}50%{transform:scaleY(1)}}
+.voice-text{font-size:16px;font-weight:500;min-height:1.8em}
+.caret{display:inline-block;width:2px;height:1.05em;background:var(--teal-bright);vertical-align:-2px;animation:blink 1s steps(1) infinite;box-shadow:0 0 8px var(--teal-glow)}
+@keyframes blink{50%{opacity:0}}
+.thinking{
+  display:flex;align-items:center;gap:10px;justify-content:center;
+  margin:12px 0;font-size:12.5px;color:var(--teal-bright);font-weight:600;
+}
+.thinking .dots span{
+  display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal-bright);
+  margin-inline-start:4px;animation:think 1.2s ease-in-out infinite;box-shadow:0 0 6px var(--teal-glow);
+}
+.thinking .dots span:nth-child(2){animation-delay:.2s}
+.thinking .dots span:nth-child(3){animation-delay:.4s}
+@keyframes think{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-4px);opacity:1}}
+.entry{
+  background:rgba(5,15,13,.65);border:1px solid var(--line);
+  border-radius:14px;padding:18px;
+}
+.entry-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.entry-title strong{font-family:"Alexandria";font-size:15px;color:var(--teal-bright)}
+.tag{background:rgba(240,185,75,.1);color:var(--gold);font-size:12px;font-weight:700;padding:3px 12px;border-radius:999px;border:1px solid rgba(240,185,75,.3)}
+.entry table{width:100%;border-collapse:collapse;font-size:14.5px}
+.entry td{padding:7px 0;border-bottom:1px dashed rgba(143,176,170,.18);color:var(--muted)}
+.entry td:last-child{text-align:left;font-weight:700;color:var(--text)}
+.entry tr:last-child td{border-bottom:none}
+.entry tr:last-child td:last-child{color:var(--teal-bright);font-weight:800;text-shadow:0 0 14px var(--teal-glow)}
+.entry-actions{display:flex;gap:10px;margin-top:14px}
+.entry-actions button{
+  flex:1;border:none;border-radius:10px;padding:10px;font-family:inherit;
+  font-size:14.5px;font-weight:700;cursor:default;
+}
+.ok{background:linear-gradient(135deg,var(--teal-bright),var(--teal));color:#04211d;box-shadow:0 0 16px rgba(45,212,191,.25)}
+.edit{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--line)}
+
+/* ---------- Sections ---------- */
+section{padding:72px 0;position:relative;z-index:2}
+.sec-head{max-width:660px;margin:0 auto 48px;text-align:center}
+.sec-head h2{font-size:clamp(26px,3.8vw,36px);font-weight:800}
+.sec-head h2 .grad{
+  background:linear-gradient(90deg,var(--teal-bright),var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.sec-head p{margin-top:12px;color:var(--muted)}
+
+/* Features */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:860px){.features-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.features-grid{grid-template-columns:1fr}}
+.feature{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px 22px;transition:transform .25s,border-color .25s,box-shadow .25s;
+  backdrop-filter:blur(6px);
+}
+.feature:hover{
+  transform:translateY(-4px);border-color:var(--line-strong);
+  box-shadow:0 18px 44px rgba(0,0,0,.4),0 0 24px rgba(45,212,191,.1);
+}
+.feature .icon{
+  width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
+  font-size:22px;margin-bottom:14px;
+  background:rgba(45,212,191,.09);border:1px solid var(--line-strong);
+  box-shadow:0 0 18px rgba(45,212,191,.12);
+}
+.feature h3{font-size:17px;font-weight:700;margin-bottom:8px}
+.feature p{font-size:14px;color:var(--muted)}
+
+/* Steps */
+.steps{
+  border:1px solid var(--line-strong);border-radius:28px;padding:56px 40px;
+  background:
+    radial-gradient(ellipse at 20% 0%,rgba(45,212,191,.09),transparent 55%),
+    radial-gradient(ellipse at 85% 100%,rgba(240,185,75,.07),transparent 55%),
+    var(--bg-2);
+  position:relative;overflow:hidden;
+}
+@media(max-width:600px){.steps{padding:44px 24px}}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+@media(max-width:760px){.steps-grid{grid-template-columns:1fr}}
+.step .num{
+  font-family:"Alexandria";font-size:14px;font-weight:800;color:var(--gold);
+  margin-bottom:10px;display:block;text-shadow:0 0 14px var(--gold-glow);
+}
+.step h3{font-size:18px;margin-bottom:8px}
+.step p{font-size:14.5px;color:var(--muted)}
+
+/* Pricing */
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
+@media(max-width:960px){.pricing-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.pricing-grid{grid-template-columns:1fr}}
+.plan{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px 22px;display:flex;flex-direction:column;backdrop-filter:blur(6px);
+  transition:transform .25s,border-color .25s;
+}
+.plan:hover{transform:translateY(-3px);border-color:var(--line-strong)}
+.plan.popular{
+  border:1px solid rgba(45,212,191,.6);position:relative;
+  box-shadow:0 0 34px rgba(45,212,191,.14);
+  background:linear-gradient(170deg,rgba(20,50,45,.7),rgba(8,23,20,.75));
+}
+.popular-badge{
+  position:absolute;top:-13px;right:20px;
+  background:linear-gradient(135deg,var(--gold),#d99a2b);color:#231604;
+  font-size:12px;font-weight:800;padding:3px 14px;border-radius:999px;
+  box-shadow:0 0 18px var(--gold-glow);
+}
+.plan h3{font-size:16.5px;font-weight:700;color:var(--muted)}
+.price{margin:14px 0 4px;font-family:"Alexandria";font-size:30px;font-weight:800;color:var(--teal-bright);text-shadow:0 0 22px rgba(45,212,191,.3)}
+.price small{font-size:13.5px;color:var(--muted);font-weight:500}
+.save{font-size:12.5px;color:var(--gold);font-weight:700;min-height:20px}
+.plan ul{list-style:none;margin:16px 0 22px;flex:1}
+.plan li{font-size:13.5px;color:var(--muted);padding:6px 0;padding-right:22px;position:relative}
+.plan li::before{content:"✓";position:absolute;right:0;color:var(--teal-bright);font-weight:800}
+.plan .btn{font-size:14px;padding:11px 14px}
+.pay-note{
+  max-width:680px;margin:30px auto 0;text-align:center;font-size:13.5px;color:var(--muted);
+  background:var(--panel);border:1px dashed var(--line-strong);border-radius:14px;padding:16px 20px;
+}
+.pay-note strong{color:var(--gold)}
+
+/* FAQ */
+.faq{max-width:720px;margin:0 auto}
+details{
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:18px 22px;margin-bottom:12px;transition:border-color .2s;
+}
+details[open]{border-color:var(--line-strong)}
+summary{cursor:pointer;font-weight:700;font-size:15.5px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+summary::after{content:"+";font-size:20px;color:var(--teal-bright)}
+details[open] summary::after{content:"−"}
+details p{margin-top:12px;font-size:14.5px;color:var(--muted)}
+details a{color:var(--teal-bright);font-weight:700}
+
+/* Contact / footer */
+.contact-card{
+  border-radius:28px;padding:56px 40px;text-align:center;
+  border:1px solid var(--line-strong);
+  background:
+    radial-gradient(ellipse at 50% -30%,rgba(45,212,191,.16),transparent 60%),
+    var(--bg-2);
+  box-shadow:0 0 60px rgba(45,212,191,.07);
+}
+.contact-card h2{font-size:clamp(24px,3.4vw,32px);font-weight:800}
+.contact-card p{margin-top:12px;color:var(--muted);max-width:52ch;margin-inline:auto}
+.contact-card .btn{margin-top:28px}
+footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:relative;z-index:2}
+.foot{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted)}
+.foot a{color:var(--teal-bright);font-weight:600}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<header>
+  <div class="container nav">
+    <a href="#" class="brand"><span class="brand-mark">س</span> سجّل <span class="ai">AI</span></a>
+    <nav class="nav-links">
+      <a href="#features">المميزات</a>
+      <a href="#how">كيف يعمل</a>
+      <a href="#pricing">الأسعار</a>
+      <a href="#faq">أسئلة شائعة</a>
+      <a href="#contact">تواصل معنا</a>
+    </nav>
+    <a href="#pricing" class="nav-cta">جرّب مجاناً</a>
+  </div>
+</header>
+
+<section class="hero">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow"><span class="pulse-dot"></span> ذكاء اصطناعي بفهم اللهجة الفلسطينية</span>
+      <h1>محاسبة بالذكاء الاصطناعي…<br><span class="grad">بس احكي، وهو بسجّل.</span></h1>
+      <p class="lead">سجّل AI بحوّل صوتك لقيود محاسبية مضبوطة. احكِ بلهجتك — <strong>دين، دفعة، مبيعات، مصاريف</strong> — والذكاء الاصطناعي بفهم، بسجّل، بحسب الرصيد، وبطلعلك كشف حساب جاهز لكل زبون ومورّد.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#pricing">جرّب مجاناً ٤٨ ساعة</a>
+        <a class="btn btn-ghost" href="#how">شوف كيف بشتغل</a>
+      </div>
+      <p class="hero-note">متوفر لأجهزة iPhone و Android · بياناتك محفوظة على جهازك مع نسخة احتياطية سحابية</p>
+    </div>
+
+    <div class="demo" aria-label="مثال حي على تسجيل عملية بالصوت">
+      <div class="demo-top">
+        <div class="demo-label">🎧 التطبيق بسمعك هلأ…</div>
+        <span class="ai-chip">AI ⚡ مباشر</span>
+      </div>
+      <div class="voice-row">
+        <div class="mic">🎙️</div>
+        <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="voice-text"><span id="typed"></span><span class="caret"></span></div>
+      </div>
+      <div class="thinking">الذكاء الاصطناعي بحلل كلامك <span class="dots"><span></span><span></span><span></span></span></div>
+      <div class="entry">
+        <div class="entry-title">
+          <strong>⚡ قيد جاهز — بانتظار تأكيدك</strong>
+          <span class="tag">دين</span>
+        </div>
+        <table>
+          <tr><td>العميل</td><td>أبو محمد</td></tr>
+          <tr><td>المبلغ</td><td>50.00 ₪</td></tr>
+          <tr><td>التاريخ</td><td>اليوم</td></tr>
+          <tr><td>الرصيد بعد العملية</td><td>230.00 ₪</td></tr>
+        </table>
+        <div class="entry-actions">
+          <button class="ok" type="button">✓ تأكيد</button>
+          <button class="edit" type="button">تعديل</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="container">
+    <div class="sec-head reveal">
+      <h2>ذكاء اصطناعي… <span class="grad">بعقلية محاسب</span></h2>
+      <p>ما بدك خلفية محاسبية ولا وقت فاضي. بدك بس تحكي — والباقي على الذكاء الاصطناعي.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature reveal"><div class="icon">🗣️</div><h3>بفهم لهجتك</h3><p>احكِ بالعامية الفلسطينية بشكل طبيعي. «سجّل عَ فلان»، «قبضت من فلان»، «اشتريت بضاعة» — الذكاء الاصطناعي فاهم عليك.</p></div>
+      <div class="feature reveal"><div class="icon">📒</div><h3>كشف حساب لكل زبون ومورّد</h3><p>كل عميل وكل مورّد إله صفحة فيها كل حركاته ورصيده الحالي — بدل دفتر الديون الورقي.</p></div>
+      <div class="feature reveal"><div class="icon">✅</div><h3>تأكيد قبل الحفظ</h3><p>ولا عملية بتنحفظ إلا بعد ما تراجعها وتأكدها بنفسك، مع إمكانية التعديل اليدوي بأي وقت.</p></div>
+      <div class="feature reveal"><div class="icon">📊</div><h3>تقارير جاهزة</h3><p>مبيعات حسب الزبون، مصاريف حسب التصنيف، وكشوفات PDF بتقدر تبعتها لأي حدا.</p></div>
+      <div class="feature reveal"><div class="icon">📴</div><h3>بشتغل بدون إنترنت</h3><p>بياناتك محفوظة على جهازك أولاً، وبتترفع نسخة احتياطية للسحاب لما يرجع الاتصال.</p></div>
+      <div class="feature reveal"><div class="icon">🧮</div><h3>محاسبة صح، من محاسب</h3><p>مبني على أساس القيد المزدوج بخبرة محاسبية حقيقية — أرصدتك دايماً مضبوطة وقابلة للتدقيق.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="container">
+    <div class="steps reveal">
+      <div class="sec-head">
+        <h2>ثلاث خطوات <span class="grad">وخلصت</span></h2>
+        <p>من صوتك لقيد محاسبي مضبوط بأقل من دقيقة.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step"><span class="num">الخطوة ١</span><h3>احكِ العملية</h3><p>اضغط زر المايك واحكِ بلهجتك: نوع العملية، الاسم، والمبلغ.</p></div>
+        <div class="step"><span class="num">الخطوة ٢</span><h3>الذكاء الاصطناعي بفهم وبجهّز القيد</h3><p>بحلل كلامك وبعرضلك القيد قبل الحفظ — تأكد أو عدّل أي تفصيلة.</p></div>
+        <div class="step"><span class="num">الخطوة ٣</span><h3>خلص، انحسب كل شي</h3><p>الرصيد بتحدّث، كشف الحساب بنضاف عليه، والتقارير جاهزة فوراً.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container">
+    <div class="sec-head reveal">
+      <h2>أسعار واضحة، <span class="grad">بلا مفاجآت</span></h2>
+      <p>ابدأ مجاناً، وجرّب كل الميزات ببلاش لمدة ٤٨ ساعة قبل ما تقرر.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="plan reveal">
+        <h3>مجاني</h3>
+        <div class="price">0 ₪</div>
+        <div class="save"></div>
+        <ul>
+          <li>حتى 50 عميل</li>
+          <li>30 عملية صوتية شهرياً</li>
+          <li>كشوفات PDF بعلامة مائية</li>
+        </ul>
+        <a class="btn btn-ghost" href="#contact">حمّل التطبيق</a>
+      </div>
+      <div class="plan reveal">
+        <h3>شهري</h3>
+        <div class="price">99.99 ₪ <small>/ شهر</small></div>
+        <div class="save"></div>
+        <ul>
+          <li>عملاء ومورّدين بلا حدود</li>
+          <li>عمليات صوتية بلا حدود</li>
+          <li>كشوفات PDF بدون علامة مائية</li>
+          <li>كل التقارير</li>
+        </ul>
+        <a class="btn btn-primary" href="#contact">اشترك</a>
+      </div>
+      <div class="plan popular reveal">
+        <span class="popular-badge">الأكثر طلباً</span>
+        <h3>٣ شهور</h3>
+        <div class="price">259 ₪ <small>/ ٣ شهور</small></div>
+        <div class="save">وفّر حوالي 14%</div>
+        <ul>
+          <li>كل ميزات الاشتراك الشهري</li>
+          <li>دفعة وحدة كل ٣ شهور</li>
+          <li>أولوية بالدعم الفني</li>
+        </ul>
+        <a class="btn btn-primary" href="#contact">اشترك</a>
+      </div>
+      <div class="plan reveal">
+        <h3>سنوي</h3>
+        <div class="price">899 ₪ <small>/ سنة</small></div>
+        <div class="save">وفّر حوالي 25%</div>
+        <ul>
+          <li>كل ميزات الاشتراك الشهري</li>
+          <li>أوفر خيار على المدى الطويل</li>
+          <li>أولوية بالدعم الفني</li>
+        </ul>
+        <a class="btn btn-ghost" href="#contact">اشترك</a>
+      </div>
+    </div>
+    <div class="pay-note reveal">
+      💳 الدفع داخل التطبيق عبر App Store لمستخدمي iPhone.
+      الدفع الإلكتروني عبر الموقع (بطاقة / محفظة إلكترونية) لمستخدمي Android والويب — <strong>قريباً</strong>.
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <div class="sec-head reveal">
+      <h2>أسئلة <span class="grad">بتوصلنا كثير</span></h2>
+    </div>
+    <div class="faq reveal">
+      <details>
+        <summary>هل بياناتي آمنة؟</summary>
+        <p>بياناتك محفوظة على جهازك أولاً، وبتنسخ احتياطياً على سيرفرات سحابية مؤمّنة مرتبطة برقم هاتفك. ما منشارك بياناتك مع أي طرف ثالث. اقرأ <a href="https://osama95work.github.io/sajjel-privacy-/">سياسة الخصوصية</a> كاملة.</p>
+      </details>
+      <details>
+        <summary>شو بصير لو غيّرت جهازي؟</summary>
+        <p>حسابك مربوط برقم هاتفك. نزّل التطبيق على الجهاز الجديد، سجّل دخول بنفس الرقم، وبترجعلك كل بياناتك من النسخة السحابية.</p>
+      </details>
+      <details>
+        <summary>هل لازم يكون عندي خبرة بالمحاسبة؟</summary>
+        <p>لا أبداً. التطبيق مصمّم لصاحب المحل العادي — انت بتحكي بلغتك، والمنطق المحاسبي (القيد المزدوج، الأرصدة، الكشوفات) بشتغل بالخلفية لحاله.</p>
+      </details>
+      <details>
+        <summary>بشتغل التطبيق بدون إنترنت؟</summary>
+        <p>التسجيل اليدوي وعرض الكشوفات بشتغلوا بدون إنترنت. التسجيل الصوتي بحتاج اتصال لأنه بستخدم الذكاء الاصطناعي لفهم كلامك.</p>
+      </details>
+      <details>
+        <summary>كيف بلغي اشتراكي؟</summary>
+        <p>بأي وقت. اشتراكات iPhone بتلغيها من إعدادات App Store، واشتراكات الموقع بتلغيها بضغطة زر أو بمراسلتنا على الإيميل.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="contact-card reveal">
+      <h2>عندك سؤال؟ <span style="background:linear-gradient(90deg,var(--teal-bright),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent">احنا هون</span></h2>
+      <p>سواء كنت صاحب محل بدك تجرب، أو عندك استفسار عن الاشتراك، راسلنا وبنرد عليك بأسرع وقت.</p>
+      <a class="btn btn-primary" href="mailto:sajjel.ai.support@gmail.com">✉️ sajjel.ai.support@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container foot">
+    <div>© 2026 سجّل AI — Sajjel AI. جميع الحقوق محفوظة. أريحا، فلسطين.</div>
+    <div>
+      <a href="https://osama95work.github.io/sajjel-privacy-/">سياسة الخصوصية</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:sajjel.ai.support@gmail.com">الدعم الفني</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- typing animation for the voice phrase ---- */
+  var phrases = [
+    'سجّل دين على أبو محمد خمسين شيكل',
+    'قبضت من أم خالد مية وعشرين شيكل',
+    'اشتريت بضاعة من المورد بألف شيكل',
+    'مصاريف كهربا مية وخمسين شيكل'
+  ];
+  var typed = document.getElementById('typed');
+  if (typed) {
+    if (reduced) {
+      typed.textContent = phrases[0];
+    } else {
+      var pi = 0, ci = 0, deleting = false;
+      (function tick(){
+        var p = phrases[pi];
+        if (!deleting) {
+          ci++;
+          typed.textContent = p.slice(0, ci);
+          if (ci === p.length) { deleting = true; return setTimeout(tick, 2200); }
+          setTimeout(tick, 65);
+        } else {
+          ci--;
+          typed.textContent = p.slice(0, ci);
+          if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; return setTimeout(tick, 500); }
+          setTimeout(tick, 28);
+        }
+      })();
+    }
+  }
+
+  /* ---- neural network canvas in hero ---- */
+  var canvas = document.getElementById('net');
+  if (canvas && !reduced) {
+    var ctx = canvas.getContext('2d');
+    var nodes = [], W, H, N = 46;
+    function resize(){
+      var r = canvas.parentElement.getBoundingClientRect();
+      W = canvas.width = r.width;
+      H = canvas.height = r.height;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    for (var i = 0; i < N; i++) {
+      nodes.push({
+        x: Math.random(), y: Math.random(),
+        vx: (Math.random() - .5) * .0006,
+        vy: (Math.random() - .5) * .0006,
+        gold: Math.random() < .22
+      });
+    }
+    (function draw(){
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < N; i++) {
+        var a = nodes[i];
+        a.x += a.vx; a.y += a.vy;
+        if (a.x < 0 || a.x > 1) a.vx *= -1;
+        if (a.y < 0 || a.y > 1) a.vy *= -1;
+        for (var j = i + 1; j < N; j++) {
+          var b = nodes[j];
+          var dx = (a.x - b.x) * W, dy = (a.y - b.y) * H;
+          var d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 150) {
+            ctx.strokeStyle = 'rgba(45,212,191,' + (0.14 * (1 - d / 150)) + ')';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x * W, a.y * H);
+            ctx.lineTo(b.x * W, b.y * H);
+            ctx.stroke();
+          }
+        }
+      }
+      for (var k = 0; k < N; k++) {
+        var n = nodes[k];
+        ctx.fillStyle = n.gold ? 'rgba(240,185,75,.8)' : 'rgba(45,212,191,.75)';
+        ctx.shadowColor = n.gold ? 'rgba(240,185,75,.9)' : 'rgba(45,212,191,.9)';
+        ctx.shadowBlur = 6;
+        ctx.beginPath();
+        ctx.arc(n.x * W, n.y * H, n.gold ? 2.2 : 1.7, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+      requestAnimationFrame(draw);
+    })();
+  }
+
+  /* ---- reveal on scroll ---- */
+  var items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !reduced) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: .12 });
+    items.forEach(function(el){ io.observe(el); });
+  } else {
+    items.forEach(function(el){ el.classList.add('in'); });
+  }
+})();
+</script>
+
+</body>
+</html>
