@@ -285,6 +285,25 @@ section{padding:72px 0;position:relative;z-index:2}
 }
 .pay-note strong{color:var(--gold)}
 
+/* SMS / OTP consent */
+.sms-card{
+  max-width:820px;margin:0 auto;
+  background:var(--panel);border:1px solid var(--line-strong);border-radius:var(--radius);
+  padding:34px 30px;backdrop-filter:blur(6px);
+  box-shadow:0 18px 44px rgba(0,0,0,.4),0 0 24px rgba(45,212,191,.08);
+}
+@media(max-width:600px){.sms-card{padding:26px 20px}}
+.sms-card>p{color:var(--muted);font-size:15px}
+.sms-card>p strong{color:var(--text)}
+.sms-list{list-style:none;margin:20px 0;display:grid;gap:12px}
+.sms-list li{position:relative;padding-right:30px;font-size:14.5px;color:var(--muted)}
+.sms-list li::before{
+  content:"✓";position:absolute;right:0;top:0;color:var(--teal-bright);font-weight:800;
+  text-shadow:0 0 12px var(--teal-glow);
+}
+.sms-legal{margin-top:6px;font-size:14px;color:var(--muted)}
+.sms-card a{color:var(--teal-bright);font-weight:700}
+
 /* FAQ */
 .faq{max-width:720px;margin:0 auto}
 details{
@@ -482,6 +501,23 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
   </div>
 </section>
 
+<section id="sms">
+  <div class="container">
+    <div class="sec-head reveal">
+      <h2>إشعار رسائل <span class="grad">التحقق (SMS)</span></h2>
+    </div>
+    <div class="sms-card reveal">
+      <p>عند تسجيلك أو دخولك إلى تطبيق سجّل AI، نرسل لك رمز تحقق لمرة واحدة (OTP) عبر رسالة SMS إلى رقم هاتفك للتأكد من هويتك وحماية حسابك. بإدخالك رقم هاتفك وطلبك رمز التحقق فإنك توافق على استلام رسائل الـ SMS هذه منّا.</p>
+      <ul class="sms-list">
+        <li>الرسائل معاملاتية فقط: تصلك رسالة فقط عند طلبك رمز تحقق، ولا نرسل رسائل ترويجية.</li>
+        <li>قد تُطبّق رسوم الرسائل والبيانات حسب مزوّد خدمة الاتصالات.</li>
+        <li>للمساعدة تواصل معنا على <a href="mailto:support@sajjelai.com">support@sajjelai.com</a>.</li>
+      </ul>
+      <p class="sms-legal">راجع <a href="/privacy/">سياسة الخصوصية</a> و<a href="/terms/">شروط الاستخدام</a> لمزيد من التفاصيل.</p>
+    </div>
+  </div>
+</section>
+
 <section id="faq">
   <div class="container">
     <div class="sec-head reveal">
@@ -527,6 +563,8 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
     <div>© 2026 سجّل AI — Sajjel AI. جميع الحقوق محفوظة. أريحا، فلسطين.</div>
     <div>
       <a href="/privacy/">سياسة الخصوصية</a>
+      &nbsp;·&nbsp;
+      <a href="/#sms">سياسة رسائل SMS</a>
       &nbsp;·&nbsp;
       <a href="mailto:support@sajjelai.com">الدعم الفني</a>
     </div>
