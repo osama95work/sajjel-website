@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تفعيل الاشتراك بتحويل بنكي — سجّل AI</title>
+<meta name="description" content="فعّل اشتراك سجّل AI عبر تحويل بنكي: حوّل المبلغ، ارفع إيصال التحويل، ونفعّل حسابك خلال ساعات.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050f0d;
+  --bg-2:#081714;
+  --panel:rgba(16,38,34,.55);
+  --line:rgba(64,224,199,.14);
+  --line-strong:rgba(64,224,199,.35);
+  --teal:#14b8a6;
+  --teal-bright:#2dd4bf;
+  --teal-glow:rgba(45,212,191,.45);
+  --gold:#f0b94b;
+  --gold-glow:rgba(240,185,75,.4);
+  --text:#e8f5f2;
+  --muted:#8fb0aa;
+  --danger:#f87171;
+  --radius:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.8;
+  font-size:17px;
+  overflow-x:hidden;
+}
+h1,h2,h3,.brand{font-family:"Alexandria",sans-serif}
+a{color:inherit;text-decoration:none}
+.container{max-width:720px;margin:0 auto;padding:0 20px;position:relative;z-index:2}
+.glow{position:fixed;border-radius:50%;filter:blur(120px);z-index:0;pointer-events:none}
+.glow-1{width:420px;height:420px;background:rgba(20,184,166,.13);top:-120px;right:-100px}
+.glow-2{width:360px;height:360px;background:rgba(240,185,75,.07);bottom:-100px;left:-80px}
+
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(5,15,13,.75);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px}
+.brand-mark{
+  width:40px;height:40px;border-radius:12px;
+  background:linear-gradient(135deg,var(--teal),#0d7a6d);
+  display:grid;place-items:center;color:#04211d;font-size:20px;font-weight:900;
+  box-shadow:0 0 18px var(--teal-glow);
+}
+.brand .ai{color:var(--teal-bright)}
+.nav-cta{
+  background:linear-gradient(135deg,var(--teal),#0ea5a0);
+  color:#04211d;font-weight:800;font-size:14px;
+  padding:9px 20px;border-radius:999px;
+  box-shadow:0 0 20px var(--teal-glow);
+}
+
+main{padding:40px 0 72px;position:relative;z-index:2}
+.page-head{margin-bottom:28px}
+.page-head h1{
+  font-size:clamp(26px,4.5vw,34px);font-weight:900;line-height:1.35;
+}
+.page-head h1 .grad{
+  background:linear-gradient(90deg,var(--teal-bright),var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.page-head p{margin-top:12px;color:var(--muted);font-size:15.5px}
+
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 20px;margin-bottom:16px;backdrop-filter:blur(6px);
+}
+.card h2{font-size:17px;font-weight:800;margin-bottom:12px}
+.steps-list{display:grid;gap:14px;margin:0;padding:0;list-style:none}
+.steps-list li{
+  display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;
+  font-size:14.5px;color:var(--muted);
+}
+.step-num{
+  width:28px;height:28px;border-radius:999px;
+  background:rgba(45,212,191,.12);border:1px solid var(--line-strong);
+  color:var(--teal-bright);font-family:"Alexandria";font-weight:800;font-size:13px;
+  display:grid;place-items:center;
+}
+.steps-list strong{color:var(--text);font-weight:700}
+
+.plans{display:grid;gap:10px}
+.plan{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  border:1px solid var(--line);border-radius:14px;padding:14px 16px;
+  background:rgba(255,255,255,.02);cursor:pointer;transition:border-color .2s,box-shadow .2s;
+}
+.plan:hover{border-color:var(--line-strong)}
+.plan.selected{
+  border-color:rgba(45,212,191,.65);
+  box-shadow:0 0 22px rgba(45,212,191,.12);
+  background:rgba(20,50,45,.45);
+}
+.plan .name{font-weight:800;font-size:15px}
+.plan .price{font-family:"Alexandria";font-weight:800;color:var(--teal-bright);font-size:18px}
+.plan .price small{font-size:12px;color:var(--muted);font-weight:500}
+.plan input{accent-color:var(--teal-bright);width:18px;height:18px}
+
+.bank-row{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px;
+}
+.bank-row:last-child{border-bottom:0}
+.bank-row .label{color:var(--muted)}
+.bank-row .value{font-weight:700;word-break:break-all;text-align:left}
+.copy-btn{
+  border:1px solid var(--line-strong);background:rgba(45,212,191,.1);
+  color:var(--teal-bright);border-radius:10px;padding:7px 12px;
+  font-weight:800;font-size:12.5px;cursor:pointer;white-space:nowrap;
+  font-family:inherit;
+}
+.copy-btn:hover{background:rgba(45,212,191,.18)}
+
+label.field{display:block;margin-bottom:14px}
+label.field > span{
+  display:block;margin-bottom:6px;font-size:13.5px;font-weight:700;color:var(--muted);
+}
+input[type="text"],input[type="tel"],textarea,input[type="file"]{
+  width:100%;border:1px solid var(--line);border-radius:12px;
+  background:rgba(0,0,0,.25);color:var(--text);
+  padding:12px 14px;font:inherit;outline:none;
+}
+input[type="file"]{padding:10px}
+input:focus,textarea:focus{border-color:var(--line-strong)}
+textarea{min-height:84px;resize:vertical}
+.hint{margin-top:6px;font-size:12.5px;color:var(--muted)}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-weight:800;font-size:16px;border-radius:14px;
+  padding:14px 28px;transition:all .2s;border:1px solid transparent;
+  cursor:pointer;font-family:inherit;width:100%;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--teal-bright),var(--teal));
+  color:#04211d;box-shadow:0 0 26px var(--teal-glow);
+}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 0 40px var(--teal-glow)}
+.btn-primary:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.btn-whatsapp{
+  margin-top:10px;
+  background:#128C7E;color:#fff;border:1px solid rgba(255,255,255,.12);
+}
+.msg{
+  margin-top:14px;padding:12px 14px;border-radius:12px;font-size:14px;display:none;
+}
+.msg.show{display:block}
+.msg.ok{
+  background:rgba(45,212,191,.1);border:1px solid var(--line-strong);color:var(--teal-bright);
+}
+.msg.err{
+  background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.35);color:var(--danger);
+}
+
+footer{
+  border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:13px;
+}
+.foot{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+.foot a:hover{color:var(--teal-bright)}
+</style>
+</head>
+<body>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="/">
+      <span class="brand-mark">س</span>
+      <span>سجّل <span class="ai">AI</span></span>
+    </a>
+    <a class="nav-cta" href="/">الرئيسية</a>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="page-head">
+      <h1>تفعيل الاشتراك بـ<span class="grad">تحويل بنكي</span></h1>
+      <p>حوّل المبلغ لحسابنا، ارفع إيصال التحويل بنفس رقم هاتفك في التطبيق، ونفعّل اشتراكك خلال ساعات قليلة.</p>
+    </div>
+
+    <div class="card">
+      <h2>كيف تتم العملية؟</h2>
+      <ol class="steps-list">
+        <li>
+          <span class="step-num">١</span>
+          <div><strong>حوّل المبلغ</strong> إلى الحساب البنكي الظاهر أدناه حسب الباقة اللي اخترتها.</div>
+        </li>
+        <li>
+          <span class="step-num">٢</span>
+          <div><strong>عبّي النموذج</strong>: رقم هاتفك في التطبيق + ارفع صورة أو PDF لإيصال التحويل.</div>
+        </li>
+        <li>
+          <span class="step-num">٣</span>
+          <div><strong>نفعّل حسابك</strong> خلال ساعات قليلة — ادخل للتطبيق بنفس الرقم.</div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>اختر الباقة</h2>
+      <div class="plans" id="plans">
+        <label class="plan selected" data-plan="monthly">
+          <div>
+            <div class="name">شهري</div>
+            <div class="price">99.99 ₪ <small>/ شهر</small></div>
+          </div>
+          <input type="radio" name="plan" value="monthly" checked>
+        </label>
+        <label class="plan" data-plan="quarterly">
+          <div>
+            <div class="name">٣ شهور</div>
+            <div class="price">259 ₪ <small>/ ٣ شهور</small></div>
+          </div>
+          <input type="radio" name="plan" value="quarterly">
+        </label>
+        <label class="plan" data-plan="annual">
+          <div>
+            <div class="name">سنوي</div>
+            <div class="price">899 ₪ <small>/ سنة</small></div>
+          </div>
+          <input type="radio" name="plan" value="annual">
+        </label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>بيانات التحويل البنكي</h2>
+      <div class="bank-row">
+        <span class="label">البنك</span>
+        <span class="value" id="bankName"></span>
+      </div>
+      <div class="bank-row">
+        <span class="label">اسم الحساب</span>
+        <span class="value" id="accountName"></span>
+      </div>
+      <div class="bank-row">
+        <span class="label">رقم الحساب</span>
+        <span class="value" id="accountNumber"></span>
+      </div>
+      <div class="bank-row">
+        <span class="label">IBAN</span>
+        <span class="value" id="iban"></span>
+      </div>
+      <div style="margin-top:14px">
+        <button type="button" class="copy-btn" id="copyIban">نسخ رقم الـ IBAN</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>أرسل إيصال التحويل</h2>
+      <form id="payForm" novalidate>
+        <label class="field">
+          <span>رقم الهاتف (نفس الرقم اللي سجّلت فيه بالتطبيق)</span>
+          <input type="tel" id="phone" inputmode="numeric" autocomplete="tel" placeholder="059xxxxxxx أو 9705…" required>
+          <div class="hint">أرقام فقط، من ٩ إلى ١٥ خانة (بدون مسافات).</div>
+        </label>
+
+        <label class="field">
+          <span>اسم المحوّل (اختياري)</span>
+          <input type="text" id="senderName" placeholder="الاسم الظاهر على إيصال التحويل">
+        </label>
+
+        <label class="field">
+          <span>ملاحظة (اختياري)</span>
+          <textarea id="note" placeholder="أي تفصيلة تساعدنا نطابق التحويل"></textarea>
+        </label>
+
+        <label class="field">
+          <span>إيصال التحويل (صورة أو PDF) — مطلوب</span>
+          <input type="file" id="proof" accept="image/jpeg,image/png,image/webp,application/pdf" required>
+          <div class="hint">الحد الأقصى ٥ ميجابايت · JPEG / PNG / WebP / PDF</div>
+        </label>
+
+        <button type="submit" class="btn btn-primary" id="submitBtn">إرسال طلب التفعيل</button>
+        <a class="btn btn-whatsapp" id="whatsappBtn" href="#" target="_blank" rel="noopener">تواصل معنا على واتساب</a>
+        <div class="msg ok" id="okMsg">تم استلام طلبك ✓ راح نفعّل الاشتراك خلال ساعات قليلة. ادخل للتطبيق بنفس الرقم.</div>
+        <div class="msg err" id="errMsg"></div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container foot">
+    <div>© 2026 سجّل AI — Sajjel AI. أريحا، فلسطين.</div>
+    <div>
+      <a href="/privacy/">سياسة الخصوصية</a>
+      &nbsp;·&nbsp;
+      <a href="/terms/">شروط الاستخدام</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:support@sajjelai.com">الدعم الفني</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ========== EDITABLE CONSTANTS (fill before go-live) ========== */
+const BANK_NAME = "Arab Bank";
+const ACCOUNT_NAME = "<حط اسمك المسجّل بالحساب>";
+const IBAN = "PS28PALS045601727660993000000";
+const ACCOUNT_NUMBER = "172766";
+const WHATSAPP_NUMBER = "972598087977"; // digits only for wa.me
+
+const SUPABASE_URL = "https://jvokikjzebegaofojcbb.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_zP4nEJK_wAQ1OD_Oe3_IIQ_gQbJ-SnD";
+const SUBMIT_URL = SUPABASE_URL + "/functions/v1/submit-payment-proof";
+/* ============================================================= */
+
+(function () {
+  document.getElementById("bankName").textContent = BANK_NAME;
+  document.getElementById("accountName").textContent = ACCOUNT_NAME;
+  document.getElementById("accountNumber").textContent = ACCOUNT_NUMBER;
+  document.getElementById("iban").textContent = IBAN;
+
+  var wa = document.getElementById("whatsappBtn");
+  var waDigits = String(WHATSAPP_NUMBER || "").replace(/\D/g, "");
+  var waText = encodeURIComponent("مرحبا، حوّلت اشتراك سجّل AI وبدي تفعيل.");
+  wa.href = "https://wa.me/" + waDigits + "?text=" + waText;
+
+  var planLabels = document.querySelectorAll("#plans .plan");
+  planLabels.forEach(function (el) {
+    el.addEventListener("click", function () {
+      planLabels.forEach(function (p) { p.classList.remove("selected"); });
+      el.classList.add("selected");
+      var radio = el.querySelector('input[type="radio"]');
+      if (radio) radio.checked = true;
+    });
+  });
+
+  document.getElementById("copyIban").addEventListener("click", function () {
+    var btn = this;
+    var text = IBAN;
+    function done() {
+      var prev = btn.textContent;
+      btn.textContent = "تم النسخ ✓";
+      setTimeout(function () { btn.textContent = prev; }, 1600);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () {
+        window.prompt("انسخ الـ IBAN:", text);
+      });
+    } else {
+      window.prompt("انسخ الـ IBAN:", text);
+    }
+  });
+
+  function selectedPlan() {
+    var r = document.querySelector('input[name="plan"]:checked');
+    return r ? r.value : "monthly";
+  }
+
+  function showOk() {
+    document.getElementById("okMsg").classList.add("show");
+    document.getElementById("errMsg").classList.remove("show");
+  }
+  function showErr(msg) {
+    var el = document.getElementById("errMsg");
+    el.textContent = msg || "حدث خطأ. حاول مرة أخرى.";
+    el.classList.add("show");
+    document.getElementById("okMsg").classList.remove("show");
+  }
+
+  function fileToBase64(file) {
+    return new Promise(function (resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function () {
+        var result = String(reader.result || "");
+        var comma = result.indexOf(",");
+        resolve(comma >= 0 ? result.slice(comma + 1) : result);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  document.getElementById("payForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var btn = document.getElementById("submitBtn");
+    var phoneRaw = document.getElementById("phone").value || "";
+    var phone = phoneRaw.replace(/\D/g, "");
+    var file = document.getElementById("proof").files && document.getElementById("proof").files[0];
+    var senderName = (document.getElementById("senderName").value || "").trim();
+    var note = (document.getElementById("note").value || "").trim();
+    var plan = selectedPlan();
+
+    if (phone.length < 9 || phone.length > 15) {
+      showErr("أدخل رقم هاتف صحيح (٩–١٥ رقماً) — نفس رقم التطبيق.");
+      return;
+    }
+    if (!file) {
+      showErr("ارفع إيصال التحويل (صورة أو PDF).");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      showErr("حجم الملف أكبر من ٥ ميجابايت.");
+      return;
+    }
+    var allowed = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+    if (allowed.indexOf(file.type) === -1) {
+      showErr("نوع الملف غير مدعوم. استخدم JPEG أو PNG أو WebP أو PDF.");
+      return;
+    }
+    if (!SUPABASE_ANON_KEY || SUPABASE_ANON_KEY.indexOf("<") === 0) {
+      showErr("إعداد الموقع غير مكتمل (مفتاح anon). تواصل مع الدعم.");
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "جاري الإرسال…";
+    document.getElementById("okMsg").classList.remove("show");
+    document.getElementById("errMsg").classList.remove("show");
+
+    try {
+      var proof_base64 = await fileToBase64(file);
+      var res = await fetch(SUBMIT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: SUPABASE_ANON_KEY
+        },
+        body: JSON.stringify({
+          phone: phone,
+          plan: plan,
+          sender_name: senderName || null,
+          note: note || null,
+          proof_base64: proof_base64,
+          proof_content_type: file.type
+        })
+      });
+      var data = null;
+      try { data = await res.json(); } catch (_) {}
+      if (!res.ok || !data || data.ok !== true) {
+        showErr((data && data.error) || ("فشل الإرسال (HTTP " + res.status + ")"));
+        return;
+      }
+      showOk();
+      document.getElementById("payForm").reset();
+      planLabels.forEach(function (p) { p.classList.remove("selected"); });
+      var monthly = document.querySelector('.plan[data-plan="monthly"]');
+      if (monthly) {
+        monthly.classList.add("selected");
+        var radio = monthly.querySelector('input[type="radio"]');
+        if (radio) radio.checked = true;
+      }
+    } catch (err) {
+      showErr("خطأ في الشبكة. تحقق من الاتصال وأعد المحاولة.");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "إرسال طلب التفعيل";
+    }
+  });
+})();
+</script>
+</body>
+</html>
