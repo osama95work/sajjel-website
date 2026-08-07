@@ -251,9 +251,8 @@ section{padding:72px 0;position:relative;z-index:2}
 .step p{font-size:14.5px;color:var(--muted)}
 
 /* Pricing */
-.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:stretch}
-@media(max-width:960px){.pricing-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.pricing-grid{grid-template-columns:1fr}}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch;max-width:920px;margin:0 auto}
+@media(max-width:860px){.pricing-grid{grid-template-columns:1fr}}
 .plan{
   background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
   padding:26px 22px;display:flex;flex-direction:column;backdrop-filter:blur(6px);
@@ -358,7 +357,7 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
       <a href="#faq">أسئلة شائعة</a>
       <a href="#contact">تواصل معنا</a>
     </nav>
-    <a href="#pricing" class="nav-cta">جرّب مجاناً</a>
+    <a href="https://sajjelai.com/pay/" class="nav-cta">جرّب مجاناً</a>
   </div>
 </header>
 
@@ -370,7 +369,7 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
       <h1>محاسبة بالذكاء الاصطناعي…<br><span class="grad">بس احكي، وهو بسجّل.</span></h1>
       <p class="lead">سجّل AI بحوّل صوتك لقيود محاسبية مضبوطة. احكِ بلهجتك — <strong>دين، دفعة، مبيعات، مصاريف</strong> — والذكاء الاصطناعي بفهم، بسجّل، بحسب الرصيد، وبطلعلك كشف حساب جاهز لكل زبون ومورّد.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="#pricing">جرّب مجاناً ٤٨ ساعة</a>
+        <a class="btn btn-primary" href="https://sajjelai.com/pay/">جرّب مجاناً ٣ أيام</a>
         <a class="btn btn-ghost" href="#how">شوف كيف بشتغل</a>
       </div>
       <p class="hero-note">متوفر لأجهزة iPhone و Android · بياناتك محفوظة على جهازك مع نسخة احتياطية سحابية</p>
@@ -418,7 +417,7 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
       <div class="feature reveal"><div class="icon">📒</div><h3>كشف حساب لكل زبون ومورّد</h3><p>كل عميل وكل مورّد إله صفحة فيها كل حركاته ورصيده الحالي — بدل دفتر الديون الورقي.</p></div>
       <div class="feature reveal"><div class="icon">✅</div><h3>تأكيد قبل الحفظ</h3><p>ولا عملية بتنحفظ إلا بعد ما تراجعها وتأكدها بنفسك، مع إمكانية التعديل اليدوي بأي وقت.</p></div>
       <div class="feature reveal"><div class="icon">📊</div><h3>تقارير جاهزة</h3><p>مبيعات حسب الزبون، مصاريف حسب التصنيف، وكشوفات PDF بتقدر تبعتها لأي حدا.</p></div>
-      <div class="feature reveal"><div class="icon">📴</div><h3>بشتغل بدون إنترنت</h3><p>بياناتك محفوظة على جهازك أولاً، وبتترفع نسخة احتياطية للسحاب لما يرجع الاتصال.</p></div>
+      <div class="feature reveal"><div class="icon">📴</div><h3>بياناتك متاحة بدون إنترنت</h3><p>بياناتك محفوظة على جهازك أولاً، وبتقدر تشوف كشوفاتك وتسجّل يدوياً بدون إنترنت؛ التسجيل الصوتي بحتاج اتصال لأنه بستخدم الذكاء الاصطناعي.</p></div>
       <div class="feature reveal"><div class="icon">🧮</div><h3>محاسبة صح، من محاسب</h3><p>مبني على أساس القيد المزدوج بخبرة محاسبية حقيقية — أرصدتك دايماً مضبوطة وقابلة للتدقيق.</p></div>
     </div>
   </div>
@@ -444,20 +443,9 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
   <div class="container">
     <div class="sec-head reveal">
       <h2>أسعار واضحة، <span class="grad">بلا مفاجآت</span></h2>
-      <p>ابدأ مجاناً، وجرّب كل الميزات ببلاش لمدة ٤٨ ساعة قبل ما تقرر.</p>
+      <p>جرّب كل الميزات مجاناً لمدة ٣ أيام، وبعدها اختر الباقة اللي بتناسبك.</p>
     </div>
     <div class="pricing-grid">
-      <div class="plan reveal">
-        <h3>مجاني</h3>
-        <div class="price">0 ₪</div>
-        <div class="save"></div>
-        <ul>
-          <li>حتى 50 عميل</li>
-          <li>30 عملية صوتية شهرياً</li>
-          <li>كشوفات PDF بعلامة مائية</li>
-        </ul>
-        <a class="btn btn-ghost" href="#contact">حمّل التطبيق</a>
-      </div>
       <div class="plan reveal">
         <h3>شهري</h3>
         <div class="price">99.99 ₪ <small>/ شهر</small></div>
@@ -468,7 +456,7 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
           <li>كشوفات PDF بدون علامة مائية</li>
           <li>كل التقارير</li>
         </ul>
-        <a class="btn btn-primary" href="#contact">اشترك</a>
+        <a class="btn btn-primary" href="https://sajjelai.com/pay/">اشترك</a>
       </div>
       <div class="plan popular reveal">
         <span class="popular-badge">الأكثر طلباً</span>
@@ -480,7 +468,7 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
           <li>دفعة وحدة كل ٣ شهور</li>
           <li>أولوية بالدعم الفني</li>
         </ul>
-        <a class="btn btn-primary" href="#contact">اشترك</a>
+        <a class="btn btn-primary" href="https://sajjelai.com/pay/">اشترك</a>
       </div>
       <div class="plan reveal">
         <h3>سنوي</h3>
@@ -491,12 +479,11 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
           <li>أوفر خيار على المدى الطويل</li>
           <li>أولوية بالدعم الفني</li>
         </ul>
-        <a class="btn btn-ghost" href="#contact">اشترك</a>
+        <a class="btn btn-ghost" href="https://sajjelai.com/pay/">اشترك</a>
       </div>
     </div>
     <div class="pay-note reveal">
-      💳 الدفع داخل التطبيق عبر App Store لمستخدمي iPhone.
-      الدفع الإلكتروني عبر الموقع (بطاقة / محفظة إلكترونية) لمستخدمي Android والويب — <strong>قريباً</strong>.
+      <a href="https://sajjelai.com/pay/">الاشتراك والدفع من خلال الموقع — اختر باقتك من صفحة الاشتراك.</a>
     </div>
   </div>
 </section>
@@ -542,7 +529,7 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
       </details>
       <details>
         <summary>كيف بلغي اشتراكي؟</summary>
-        <p>بأي وقت. اشتراكات iPhone بتلغيها من إعدادات App Store، واشتراكات الموقع بتلغيها بضغطة زر أو بمراسلتنا على الإيميل.</p>
+        <p>اشتراكك بينتهي تلقائياً بنهاية المدة إذا ما جدّدته. لأي إلغاء أو استفسار راسلنا على support@sajjelai.com.</p>
       </details>
     </div>
   </div>
