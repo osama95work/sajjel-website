@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حذف الحساب والبيانات — سجّل AI</title>
+<meta name="description" content="كيف تحذف حسابك وجميع بياناتك من تطبيق سجّل AI (Sajjel AI) — من داخل التطبيق أو عبر طلب للدعم.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050f0d;
+  --bg-2:#081714;
+  --panel:rgba(16,38,34,.55);
+  --line:rgba(64,224,199,.14);
+  --line-strong:rgba(64,224,199,.35);
+  --teal:#14b8a6;
+  --teal-bright:#2dd4bf;
+  --teal-glow:rgba(45,212,191,.45);
+  --gold:#f0b94b;
+  --text:#e8f5f2;
+  --muted:#8fb0aa;
+  --danger:#f87171;
+  --radius:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:"IBM Plex Sans Arabic",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.8;
+  font-size:17px;
+  overflow-x:hidden;
+}
+h1,h2,h3,.brand{font-family:"Alexandria",sans-serif}
+a{color:inherit;text-decoration:none}
+.container{max-width:720px;margin:0 auto;padding:0 20px;position:relative;z-index:2}
+.glow{position:fixed;border-radius:50%;filter:blur(120px);z-index:0;pointer-events:none}
+.glow-1{width:420px;height:420px;background:rgba(20,184,166,.13);top:-120px;right:-100px}
+.glow-2{width:360px;height:360px;background:rgba(240,185,75,.07);bottom:-100px;left:-80px}
+
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(5,15,13,.75);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:22px}
+.brand-mark{
+  width:40px;height:40px;border-radius:12px;
+  background:linear-gradient(135deg,var(--teal),#0d7a6d);
+  display:grid;place-items:center;color:#04211d;font-size:20px;font-weight:900;
+  box-shadow:0 0 18px var(--teal-glow);
+}
+.brand .ai{color:var(--teal-bright)}
+.nav-cta{
+  background:linear-gradient(135deg,var(--teal),#0ea5a0);
+  color:#04211d;font-weight:800;font-size:14px;
+  padding:9px 20px;border-radius:999px;
+  box-shadow:0 0 20px var(--teal-glow);
+}
+
+main{padding:40px 0 72px;position:relative;z-index:2}
+.page-head{margin-bottom:28px}
+.page-head h1{
+  font-size:clamp(26px,4.5vw,34px);font-weight:900;line-height:1.35;
+}
+.page-head h1 .grad{
+  background:linear-gradient(90deg,var(--teal-bright),var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.page-head p{margin-top:12px;color:var(--muted);font-size:15.5px}
+
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 20px;margin-bottom:16px;backdrop-filter:blur(6px);
+}
+.card h2{
+  font-size:17px;font-weight:800;margin-bottom:12px;
+  border-right:3px solid var(--teal-bright);padding-right:10px;
+}
+.card p,.card li{font-size:14.5px;color:var(--muted);margin-bottom:8px}
+.card ul{padding-right:20px;margin-top:4px}
+.card strong{color:var(--text);font-weight:700}
+.steps-list{display:grid;gap:14px;margin:0;padding:0;list-style:none}
+.steps-list li{
+  display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;
+  font-size:14.5px;color:var(--muted);
+}
+.step-num{
+  width:28px;height:28px;border-radius:999px;
+  background:rgba(45,212,191,.12);border:1px solid var(--line-strong);
+  color:var(--teal-bright);font-family:"Alexandria";font-weight:800;font-size:13px;
+  display:grid;place-items:center;
+}
+.steps-list strong{color:var(--text);font-weight:700}
+.warn{
+  background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.28);
+  border-radius:14px;padding:14px 16px;margin-top:12px;
+  font-size:13.5px;color:var(--danger);
+}
+.mail{color:var(--teal-bright);font-weight:700}
+.mail:hover{text-decoration:underline}
+.updated{text-align:center;color:var(--muted);font-size:13px;margin-top:28px;opacity:.8}
+
+footer{
+  border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:13px;
+}
+.foot{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+.foot a:hover{color:var(--teal-bright)}
+</style>
+</head>
+<body>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="/">
+      <span class="brand-mark">س</span>
+      <span>سجّل <span class="ai">AI</span></span>
+    </a>
+    <a class="nav-cta" href="/">الصفحة الرئيسية</a>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="page-head">
+      <h1>حذف الحساب و<span class="grad">البيانات</span></h1>
+      <p>
+        توضّح هذه الصفحة كيف تحذف حسابك وجميع بياناتك من تطبيق <strong>سجّل AI</strong>.
+        الحذف يتم من داخل التطبيق فقط بعد تسجيل الدخول — ما في نموذج حذف على هالصفحة، عشان ما يقدر حدا يحذف حساب غيرو.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>١. الحذف من داخل التطبيق (الطريقة الأساسية)</h2>
+      <ol class="steps-list">
+        <li>
+          <span class="step-num">1</span>
+          <span>افتح تطبيق <strong>سجّل AI</strong> وسجّل الدخول برقم هاتفك.</span>
+        </li>
+        <li>
+          <span class="step-num">2</span>
+          <span>من الشريط السفلي ادخل على <strong>الإعدادات</strong>.</span>
+        </li>
+        <li>
+          <span class="step-num">3</span>
+          <span>اضغط <strong>«حذف الحساب»</strong> ثم أكّد الطلب مرتين.</span>
+        </li>
+      </ol>
+      <div class="warn">
+        هذا الإجراء يحذف الحساب وكل البيانات المرتبطة فيه بشكل نهائي، وما فيش تراجع عنه.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>٢. إذا ما بتقدر توصل للتطبيق</h2>
+      <p>
+        راسلنا على
+        <a class="mail" href="mailto:support@sajjelai.com?subject=%D8%B7%D9%84%D8%A8%20%D8%AD%D8%B0%D9%81%20%D8%AD%D8%B3%D8%A7%D8%A8%20%D8%B3%D8%AC%D9%91%D9%84%20AI">support@sajjelai.com</a>
+        من وسيلة تواصل مرتبطة بالحساب (يفضّل نفس رقم الهاتف المسجّل)، واكتب بوضوح إنك تطلب <strong>حذف الحساب والبيانات</strong>.
+      </p>
+      <p>
+        منراجع الطلب ونتأكد من هويتك قبل أي حذف — ما مننفّذ الحذف بمجرد وصول رسالة بدون تحقق.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>٣. شو بينحذف؟</h2>
+      <ul>
+        <li>حساب المستخدم (هوية رقم الهاتف / جلسة الدخول).</li>
+        <li>كل بيانات النشاط: الأنشطة التجارية، العملاء، الموردون، المنتجات، وجميع الحركات والسجلات.</li>
+        <li>أي إيصالات تحويل مرفوعة ضمن طلبات الدفع اليدوي المرتبطة بالحساب.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>٤. شو بيبقى؟ ولمدة قديه؟</h2>
+      <p>
+        بعد تنفيذ الطلب، بنحذف بياناتك من الأنظمة النشطة (التطبيق والسحابة المرتبطة بالحساب).
+      </p>
+      <p>
+        قد نحتفظ بسجلات دفع/فوترة Minimal فقط إذا كان القانون يلزمنا فيها، وللمدة القانونية المطلوبة فقط.
+        غير هيك: ما منحتفظ ببيانات حسابك بعد اكتمال الحذف.
+      </p>
+    </div>
+
+    <p class="updated">آخر تحديث: أغسطس ٢٠٢٦ · سجّل AI — أريحا، فلسطين</p>
+  </div>
+</main>
+
+<footer>
+  <div class="container foot">
+    <div>© 2026 سجّل AI — Sajjel AI. أريحا، فلسطين.</div>
+    <div>
+      <a href="/privacy/">سياسة الخصوصية</a>
+      &nbsp;·&nbsp;
+      <a href="/terms/">شروط الاستخدام</a>
+      &nbsp;·&nbsp;
+      <a href="/delete-account/">حذف الحساب</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:support@sajjelai.com">الدعم الفني</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
