@@ -101,7 +101,29 @@ header{
 }
 .hero p.lead{margin-top:20px;font-size:18.5px;color:var(--muted);max-width:46ch}
 .hero p.lead strong{color:var(--text)}
-.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.hero-ctas{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:32px}
+.store-badges{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.store-badge img{
+  display:block;height:40px;width:auto;
+}
+.store-badge-soon{
+  position:relative;opacity:.7;pointer-events:none;user-select:none;
+}
+.store-badge-soon img{
+  /* Official Play PNG includes padding; this height matches the Apple 40px pill. */
+  display:block;height:58px;width:auto;
+}
+.store-soon-label{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  background:rgba(5,15,13,.88);color:var(--gold);
+  font-size:11px;font-weight:800;line-height:1;padding:5px 10px;border-radius:999px;
+  border:1px solid rgba(240,185,75,.45);pointer-events:none;white-space:nowrap;
+}
+.nav .store-badges{gap:8px}
+.nav .store-badge img{height:32px}
+.nav .store-badge-soon img{height:46px}
+.nav .store-soon-label{font-size:10px;padding:4px 8px}
+.plan .store-badges{justify-content:center;margin-top:auto}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
   font-weight:800;font-size:16px;border-radius:14px;
@@ -357,7 +379,16 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
       <a href="#faq">أسئلة شائعة</a>
       <a href="#contact">تواصل معنا</a>
     </nav>
-    <a href="https://sajjelai.com/pay/" class="nav-cta">جرّب مجاناً</a>
+    <div class="store-badges">
+      <a class="store-badge" href="https://apps.apple.com/app/id6778553082" target="_blank" rel="noopener">
+        <img src="/assets/app-store-badge.svg" width="120" height="40" alt="Download on the App Store">
+      </a>
+      <!-- TODO: make this a live link to https://play.google.com/store/apps/details?id=com.voiceaccountant.app once Android closed testing (14-day clock) finishes and app is promoted to production -->
+      <div class="store-badge store-badge-soon" role="img" aria-label="Get it on Google Play — قريباً">
+        <img src="/assets/google-play-badge.png" width="135" height="40" alt="">
+        <span class="store-soon-label">قريباً</span>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -369,7 +400,16 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
       <h1>محاسبة بالذكاء الاصطناعي…<br><span class="grad">بس احكي، وهو بسجّل.</span></h1>
       <p class="lead">سجّل AI بحوّل صوتك لقيود محاسبية مضبوطة. احكِ بلهجتك — <strong>دين، دفعة، مبيعات، مصاريف</strong> — والذكاء الاصطناعي بفهم، بسجّل، بحسب الرصيد، وبطلعلك كشف حساب جاهز لكل زبون ومورّد.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="https://sajjelai.com/pay/">جرّب مجاناً ٣ أيام</a>
+        <div class="store-badges">
+          <a class="store-badge" href="https://apps.apple.com/app/id6778553082" target="_blank" rel="noopener">
+            <img src="/assets/app-store-badge.svg" width="120" height="40" alt="Download on the App Store">
+          </a>
+          <!-- TODO: make this a live link to https://play.google.com/store/apps/details?id=com.voiceaccountant.app once Android closed testing (14-day clock) finishes and app is promoted to production -->
+          <div class="store-badge store-badge-soon" role="img" aria-label="Get it on Google Play — قريباً">
+            <img src="/assets/google-play-badge.png" width="135" height="40" alt="">
+            <span class="store-soon-label">قريباً</span>
+          </div>
+        </div>
         <a class="btn btn-ghost" href="#how">شوف كيف بشتغل</a>
       </div>
       <p class="hero-note">متوفر لأجهزة iPhone و Android · بياناتك محفوظة على جهازك مع نسخة احتياطية سحابية</p>
@@ -456,7 +496,16 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
           <li>كشوفات PDF بدون علامة مائية</li>
           <li>كل التقارير</li>
         </ul>
-        <a class="btn btn-primary" href="https://sajjelai.com/pay/">اشترك</a>
+        <div class="store-badges">
+          <a class="store-badge" href="https://apps.apple.com/app/id6778553082" target="_blank" rel="noopener">
+            <img src="/assets/app-store-badge.svg" width="120" height="40" alt="Download on the App Store">
+          </a>
+          <!-- TODO: make this a live link to https://play.google.com/store/apps/details?id=com.voiceaccountant.app once Android closed testing (14-day clock) finishes and app is promoted to production -->
+          <div class="store-badge store-badge-soon" role="img" aria-label="Get it on Google Play — قريباً">
+            <img src="/assets/google-play-badge.png" width="135" height="40" alt="">
+            <span class="store-soon-label">قريباً</span>
+          </div>
+        </div>
       </div>
       <div class="plan popular reveal">
         <span class="popular-badge">الأكثر طلباً</span>
@@ -468,7 +517,16 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
           <li>دفعة وحدة كل ٣ شهور</li>
           <li>أولوية بالدعم الفني</li>
         </ul>
-        <a class="btn btn-primary" href="https://sajjelai.com/pay/">اشترك</a>
+        <div class="store-badges">
+          <a class="store-badge" href="https://apps.apple.com/app/id6778553082" target="_blank" rel="noopener">
+            <img src="/assets/app-store-badge.svg" width="120" height="40" alt="Download on the App Store">
+          </a>
+          <!-- TODO: make this a live link to https://play.google.com/store/apps/details?id=com.voiceaccountant.app once Android closed testing (14-day clock) finishes and app is promoted to production -->
+          <div class="store-badge store-badge-soon" role="img" aria-label="Get it on Google Play — قريباً">
+            <img src="/assets/google-play-badge.png" width="135" height="40" alt="">
+            <span class="store-soon-label">قريباً</span>
+          </div>
+        </div>
       </div>
       <div class="plan reveal">
         <h3>سنوي</h3>
@@ -479,11 +537,20 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
           <li>أوفر خيار على المدى الطويل</li>
           <li>أولوية بالدعم الفني</li>
         </ul>
-        <a class="btn btn-ghost" href="https://sajjelai.com/pay/">اشترك</a>
+        <div class="store-badges">
+          <a class="store-badge" href="https://apps.apple.com/app/id6778553082" target="_blank" rel="noopener">
+            <img src="/assets/app-store-badge.svg" width="120" height="40" alt="Download on the App Store">
+          </a>
+          <!-- TODO: make this a live link to https://play.google.com/store/apps/details?id=com.voiceaccountant.app once Android closed testing (14-day clock) finishes and app is promoted to production -->
+          <div class="store-badge store-badge-soon" role="img" aria-label="Get it on Google Play — قريباً">
+            <img src="/assets/google-play-badge.png" width="135" height="40" alt="">
+            <span class="store-soon-label">قريباً</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="pay-note reveal">
-      <a href="https://sajjelai.com/pay/">الاشتراك والدفع من خلال الموقع — اختر باقتك من صفحة الاشتراك.</a>
+      <a href="https://apps.apple.com/app/id6778553082" target="_blank" rel="noopener">الاشتراك والدفع يتم بالكامل من داخل التطبيق عبر App Store.</a>
     </div>
   </div>
 </section>
@@ -552,6 +619,8 @@ footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;position:
       <a href="/privacy/">سياسة الخصوصية</a>
       &nbsp;·&nbsp;
       <a href="/terms/">شروط الاستخدام</a>
+      &nbsp;·&nbsp;
+      <a href="https://sajjelai.com/support/">الدعم الفني</a>
       &nbsp;·&nbsp;
       <a href="/delete-account/">حذف الحساب</a>
       &nbsp;·&nbsp;
